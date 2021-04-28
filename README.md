@@ -7,3 +7,11 @@ The purpose of this code was to get a better understanding of how to concatenate
 
 #### Why write my own function?
 Because I get more control and it is easy to modify the function to only grab certain characters or parts of an array. It is also easy to update the function so that it can take in more array arguments and add them all togater in the same function.
+
+### rev_string.c
+The functions in this file either reverses the entire string or reverses each word but keeps the order of the words.
+
+### frequency_list.c
+This program takes in a string from the user, then it finds the character that occurred the most and appends it to a single linked list. If more then one charcter occurres with the highest frequency, then those characters are added to the linked list. 
+
+ascii[250] is an array where each index represents the corresponding ascii character The integer stored at one index represents the number of times that character was found in the string. You can think of it as each slot in the array is a key value pair where the key is the index and the value is the integer stored at that index.
