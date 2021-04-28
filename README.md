@@ -15,3 +15,6 @@ The functions in this file either reverses the entire string or reverses each wo
 This program takes in a string from the user, then it finds the character that occurred the most and appends it to a single linked list. If more then one charcter occurres with the highest frequency, then those characters are added to the linked list. 
 
 ascii[250] is an array where each index represents the corresponding ascii character The integer stored at one index represents the number of times that character was found in the string. You can think of it as each slot in the array is a key value pair where the key is the index and the value is the integer stored at that index.
+
+### bubble_sort_2D_strings.c
+This program asks the user for a certain amount of strings, then the strings are sorted with bubble sort in ascending order. The program will exit the sorting loop as soon as all of the strings are sorted, that is, the loop will only iterate once if all of the strings are sorted to begin with. This is done to reduce the time complexity if the strings are already sorted or partially sorted directly after they have been inputed by the user. The number of swaps are also counted and printed out. 
