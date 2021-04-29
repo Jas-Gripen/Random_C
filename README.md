@@ -18,3 +18,6 @@ ascii[250] is an array where each index represents the corresponding ascii chara
 
 ### bubble_sort_2D_strings.c
 This program asks the user for a certain amount of strings, then the strings are sorted with bubble sort in ascending order. The program will exit the sorting loop as soon as all of the strings are sorted, that is, the loop will only iterate once if all of the strings are sorted to begin with. This is done to reduce the time complexity if the strings are already sorted or partially sorted directly after they have been inputed by the user. The number of swaps are also counted and printed out. 
+
+### extract_substring.c
+This program can extract a part of a string and copy it to a new allocated memory. Another fnction is to scan a string to find out if a perticular substring exist. The algorithm has a worst case time complexity of O(N).
