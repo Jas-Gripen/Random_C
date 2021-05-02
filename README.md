@@ -1,5 +1,8 @@
 # Random_C
 Some random C code to learn how to better work with C code.
+## File handling
+### file_handling.c
+This file contains functions that can create, append, read, encrypt and decrypt files.
 
 ## Working with Strings
 ### adding_arrays.c
