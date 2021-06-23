@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 int main(){
-    printf("Enter a cmd command\n");
+    printf("Enter a system command\n");
 
     const int STR_SIZE = 1024;
     char str[STR_SIZE];
