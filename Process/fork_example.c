@@ -1,7 +1,13 @@
 /* This program demostrates the fork() function */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <fcntl.h>
 
 void check_fork_error(int pid, int i);
 void fork_0();
@@ -10,6 +16,7 @@ void fork_2();
 void fork_3();
 void fork_4();
 void fork_5();
+void fork_6();
 
 int error_num = 0;
 int main(){
@@ -42,13 +49,18 @@ int main(){
         fork_5();
         break;
     
+    case 6:
+        fork_6();
+        break;
+    
     default:
         printf("The function_id %d does not exist\n", function_id);
         break;
     }
     
-    printf("\nerror_num = %d\n", error_num);
-    return error_num;
+    //for debugging
+    //printf("\nerror_num = %d\n", error_num);
+    return 0;
 }
 
 void check_fork_error(int pid, int i){
@@ -159,10 +171,10 @@ void fork_4(){
 }
 
 /* The largest number in an int array is found by
-*  utalizing two process, a parent and its child.
-*  The child searches the first half and parent the second.
+*  utalizing two processes, a parent and its child.
+*  The child searches the first half and the parent the second.
 *  The child will write the largest number it found through pipe(),
-*  the parent will read the value and then compare with its largest
+*  the parent will read the value and then compare with its largest.
 */
 void fork_5(){
     int arr[] = {1, 4, 7, 2, 14, 5, 0, -2, -100, 9};
@@ -220,4 +232,41 @@ void fork_5(){
         else
             printf("The largest number in the array is therfor %d", from_child);
     }    
+}
+
+/*Tis function utalizes the FIFO to communicate between processes
+* the child process will execute a bash script and cat the contents
+* of the FIFO file. Why use a bash script and not system(cat path_to_fifo)?
+* Simple, I wanted to write a bash script :)
+*/
+void fork_6(){
+    if(mkfifo("fork_fifo", 0777) == -1){
+        if (errno != EEXIST){
+            printf("Error creating fifo file in fork_6()\n");
+            error_num = 9;
+            return;
+        }
+    int pid_id = fork();
+    check_fork_error(pid_id, 10);
+
+    if(pid_id != 0){
+        int fd = open("fork_fifo", O_WRONLY);
+        int c = 'D';
+        
+        if(write(fd, &c, sizeof(int)) == - 1){
+            printf("Error writing to fifo in fork_6()\n");
+            error_num = 10;
+            return;
+        }
+        close(fd);
+    }
+    else if (pid_id == 0){
+    char command[] = "./read_FIFO.sh";
+    //command2 can be used intead of command. This will bypas the bash script
+    //char command2[] = "cat ~/learn_C/Random_C/Process/bin/fork_fifo";
+    int sys_res = system(command);
+    if(sys_res == 1)
+        printf("Error executing the command: %s", command);
+    }
+    }
 }
